@@ -7,5 +7,32 @@
         <script src="script.js" defer></script>
         <title>Library</title>
     </head>
-    <body></body>
+    <body>
+        <div class="container">
+            <h1>My Library</h1>
+            <button>ADD BOOK</button>
+            <form class="newBookForm formHidden">
+                <div class="formPair">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" required />
+                </div>
+                <div class="formPair">
+                    <label for="author">Author</label>
+                    <input type="text" name="author" id="author" required />
+                </div>
+                <div class="formPair">
+                    <label for="pages"># of Pages</label>
+                    <input type="number" name="pages" id="pages" required />
+                </div>
+                <div class="formPair">
+                    <label for="read">Already Read</label>
+                    <input type="checkbox" name="read" id="read" />
+                </div>
+                <button type="submit" id="submit">Save to Library</button>
+                <button type="reset" id="cancel">Cancel</button>
+            </form>
+
+            <div class="books"></div>
+        </div>
+    </body>
 </html>
