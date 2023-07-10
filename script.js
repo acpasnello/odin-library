@@ -33,12 +33,19 @@ function displayBooks() {
         removeButton.addEventListener("click", function () {
             removeBook(removeButton.dataset.id);
         });
-        let readButton = document.createElement("span");
+        let readButton = document.createElement("button");
+        readButton.dataset.id = book;
+        readButton.classList.add("read");
         if (myLibrary[book].read) {
-            readButton.innerText = "Read";
+            readButton.innerText = "Mark as Unread";
+            readButton.dataset.status = true;
         } else {
-            readButton.innerHTML = `<button>Mark as Read</button>`;
+            readButton.innerText = `Mark as Read`;
+            readButton.dataset.status = false;
         }
+        readButton.addEventListener("click", function () {
+            toggleReadStatus(this, book, myLibrary[book].read);
+        });
         newDiv.appendChild(readButton);
         newDiv.appendChild(removeButton);
         newDiv.classList.add("card");
@@ -76,6 +83,19 @@ function removeBook(id) {
     console.log(id);
     myLibrary.splice(id, 1);
     displayBooks();
+}
+
+function toggleReadStatus(element, bookID, status) {
+    console.log(bookID);
+    if (status) {
+        element.innerText = "Mark as Read";
+        element.dataset.status = false;
+        myLibrary[bookID].read = false;
+    } else {
+        element.innerText = "Mark as Unread";
+        element.dataset.status = true;
+        myLibrary[bookID].read = true;
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
