@@ -1,14 +1,10 @@
-let myLibrary = [
-    { title: "Dark Matter", author: "Blake Crouch", pages: 245, read: true },
-    { title: "A Farewell to Arms", author: "Ernest Hemingway", pages: 245, read: true },
-];
+let myLibrary = [new Book("Dark Matter", "Blake Crouch", 245, true), new Book("A Farewell to Arms", "Ernest Hemingway", 245, true)];
 
 let booksDisplay = document.querySelector(".books");
 let newBookButton = document.querySelector("button");
 let newBookForm = document.querySelector(".newBookForm");
 let cancelButton = document.querySelector("#cancel");
 let submitButton = document.querySelector("#submit");
-let removeButtons = document.querySelectorAll(".remove");
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -28,8 +24,23 @@ function displayBooks() {
         let newDiv = document.createElement("div");
         newDiv.innerHTML = `
         <span class="bookTitle">${myLibrary[book].title}</span> <p>by ${myLibrary[book].author}</p>
-        <button class="remove" data-id="${book}">Remove from Library</button>
+        <p>${myLibrary[book].pages} pages</p>
         `;
+        let removeButton = document.createElement("button");
+        removeButton.innerText = `Remove from Library`;
+        removeButton.classList.add("remove");
+        removeButton.dataset.id = book;
+        removeButton.addEventListener("click", function () {
+            removeBook(removeButton.dataset.id);
+        });
+        let readButton = document.createElement("span");
+        if (myLibrary[book].read) {
+            readButton.innerText = "Read";
+        } else {
+            readButton.innerHTML = `<button>Mark as Read</button>`;
+        }
+        newDiv.appendChild(readButton);
+        newDiv.appendChild(removeButton);
         newDiv.classList.add("card");
         newDiv.dataset.id = book;
         booksDisplay.appendChild(newDiv);
@@ -38,9 +49,10 @@ function displayBooks() {
 
 function clearInputs() {
     let inputs = document.querySelectorAll("input");
-    for (let input in inputs) {
+
+    inputs.forEach((input) => {
         input.value = "";
-    }
+    });
 }
 
 function processInputs(e) {
@@ -57,6 +69,13 @@ function processInputs(e) {
     }
     addBookToLibrary(attributes.title, attributes.author, attributes.pages, attributes.read);
     displayBooks();
+    clearInputs();
+}
+
+function removeBook(id) {
+    console.log(id);
+    myLibrary.splice(id, 1);
+    displayBooks();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -69,8 +88,4 @@ document.addEventListener("DOMContentLoaded", function () {
         newBookForm.classList.add("formHidden");
     });
     newBookForm.addEventListener("submit", processInputs);
-
-    removeButtons.forEach(function (elem) {
-        elem.addEventListener("click", removeBook(elem));
-    });
 });
