@@ -1,14 +1,18 @@
+.container {
+    margin: 8px;
+}
 .books {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     grid-auto-rows: 200px;
     gap: 12px;
-    margin: 8px;
+    margin: 8px 0;
 }
 
 .card {
     border: 1px solid rgb(150, 150, 150);
     padding: 12px;
+    border-radius: 4px;
 }
 
 .bookTitle {
@@ -20,7 +24,11 @@
     display: grid;
     grid-template-columns: repeat(2, 150px);
     gap: 8px;
-    margin: 8px;
+    margin: 8px 0;
+    border: 1px solid #3a3a3a;
+    width: fit-content;
+    padding: 8px;
+    border-radius: 4px;
 }
 .formHidden {
     display: none;
@@ -40,4 +48,10 @@ input {
 
 input[type="checkbox"] {
     width: fit-content;
+}
+
+.bookButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }

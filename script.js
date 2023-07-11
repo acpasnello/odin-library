@@ -46,8 +46,11 @@ function displayBooks() {
         readButton.addEventListener("click", function () {
             toggleReadStatus(this, book, myLibrary[book].read);
         });
-        newDiv.appendChild(readButton);
-        newDiv.appendChild(removeButton);
+        let buttonDiv = document.createElement("div");
+        buttonDiv.classList.add("bookButtons");
+        newDiv.appendChild(buttonDiv);
+        buttonDiv.appendChild(readButton);
+        buttonDiv.appendChild(removeButton);
         newDiv.classList.add("card");
         newDiv.dataset.id = book;
         booksDisplay.appendChild(newDiv);
@@ -102,10 +105,11 @@ document.addEventListener("DOMContentLoaded", function () {
     newBookButton.addEventListener("click", function () {
         newBookForm.classList.remove("formHidden");
     });
+
     cancelButton.addEventListener("click", function () {
         newBookForm.reset();
-        // clearInputs();
         newBookForm.classList.add("formHidden");
     });
+
     newBookForm.addEventListener("submit", processInputs);
 });
