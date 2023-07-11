@@ -54,33 +54,31 @@ function displayBooks() {
     }
 }
 
-function clearInputs() {
-    let inputs = document.querySelectorAll("input");
-
-    inputs.forEach((input) => {
-        input.value = "";
-    });
-}
-
 function processInputs(e) {
     e.preventDefault();
     let data = new FormData(newBookForm);
+    console.log(data);
     let keys = ["title", "author", "pages", "read"];
     let attributes = { title: "", author: "", pages: "", read: "" };
-    for (let i = 0; i < keys.length; i++) {
+    for (let i = 0; i < keys.length - 1; i++) {
         if (data.has(keys[i])) {
             attributes[keys[i]] = data.get(keys[i]);
         } else {
             attributes[keys[i]] = false;
         }
     }
+    if (data.has(keys[3])) {
+        attributes[keys[3]] = true;
+    } else {
+        attributes[keys[3]] = false;
+    }
+
     addBookToLibrary(attributes.title, attributes.author, attributes.pages, attributes.read);
     displayBooks();
-    clearInputs();
+    newBookForm.reset();
 }
 
 function removeBook(id) {
-    console.log(id);
     myLibrary.splice(id, 1);
     displayBooks();
 }
@@ -100,11 +98,13 @@ function toggleReadStatus(element, bookID, status) {
 
 document.addEventListener("DOMContentLoaded", function () {
     displayBooks();
+
     newBookButton.addEventListener("click", function () {
         newBookForm.classList.remove("formHidden");
     });
     cancelButton.addEventListener("click", function () {
-        clearInputs();
+        newBookForm.reset();
+        // clearInputs();
         newBookForm.classList.add("formHidden");
     });
     newBookForm.addEventListener("submit", processInputs);
