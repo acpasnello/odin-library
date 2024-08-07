@@ -1,22 +1,35 @@
-let myLibrary = [new Book("Dark Matter", "Blake Crouch", 245, true), new Book("A Farewell to Arms", "Ernest Hemingway", 245, true)];
-
 let booksDisplay = document.querySelector(".books");
 let newBookButton = document.querySelector("button");
 let newBookForm = document.querySelector(".newBookForm");
 let cancelButton = document.querySelector("#cancel");
 let submitButton = document.querySelector("#submit");
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+let myLibrary = []
+
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        myLibrary.push(this)
+    }
 }
 
-function addBookToLibrary(title, author, pages, read) {
-    let newBook = new Book(title, author, pages, read);
-    myLibrary.push(newBook);
-}
+// function Book(title, author, pages, read) {
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.read = read;
+// }
+
+// function addBookToLibrary(title, author, pages, read) {
+//     let newBook = new Book(title, author, pages, read);
+//     myLibrary.push(newBook);
+// }
+
+let newBook = new Book("Dark Matter", "Blake Crouch", 245, true)
+newBook = new Book("A Farewell to Arms", "Ernest Hemingway", 245, true)
 
 function displayBooks() {
     booksDisplay.innerHTML = "";
@@ -76,7 +89,8 @@ function processInputs(e) {
         attributes[keys[3]] = false;
     }
 
-    addBookToLibrary(attributes.title, attributes.author, attributes.pages, attributes.read);
+    // addBookToLibrary(attributes.title, attributes.author, attributes.pages, attributes.read);
+    let newBook = new Book(attributes.title, attributes.author, attributes.pages, attributes.read)
     displayBooks();
     newBookForm.reset();
 }
